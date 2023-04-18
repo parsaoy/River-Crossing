@@ -43,7 +43,7 @@ def pathShow(List_States):
     previousState = List_States[0]
     for state in List_States[1:]:
         if Counter != 1:
-            sleep(0.6)
+            sleep(2)
         clear()
         print(f"\033[3;46;35mChild State {Counter}\033[0m")
         Display(state)
