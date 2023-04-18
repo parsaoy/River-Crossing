@@ -43,7 +43,7 @@ def pathShow(List_States):
     previousState = List_States[0]
     for state in List_States[1:]:
         if Counter != 1:
-            sleep(1)
+            sleep(0.6)
         clear()
         print(f"\033[3;46;35mChild State {Counter}\033[0m")
         Display(state)
@@ -88,34 +88,16 @@ def generateAllValidStates(state):
 
     valid_states = []
     for _ in [POLICE, THIEF, FATHER, MOTHER, DAUGHTER_1, DAUGHTER_2, SON_1, SON_2]:
-# **//////////////////**
-        if state[_] == state[FATHER] == state[BOAT_Direction]:
-            new_State = copy(state)
+        for parent in [FATHER, MOTHER, POLICE]:
+            if state[_] == state[parent] == state[BOAT_Direction]:
+                new_State = copy(state)
 
-            if new_State[_]:  new_State[_] = new_State[FATHER] = new_State[BOAT_Direction] = 0;
-            else:             new_State[_] = new_State[FATHER] = new_State[BOAT_Direction] = 1;
+                if new_State[_]:  new_State[_] = new_State[parent] = new_State[BOAT_Direction] = 0;
+                else:             new_State[_] = new_State[parent] = new_State[BOAT_Direction] = 1;
 
-            if isValid(new_State) and new_State not in valid_states:
-                valid_states.append(new_State)
-# //////////////////
-        if state[_] == state[MOTHER] == state[BOAT_Direction]:
-            new_State = copy(state)
+                if isValid(new_State) and new_State not in valid_states:
+                    valid_states.append(new_State)
 
-            if new_State[_]: new_State[_] = new_State[MOTHER] = new_State[BOAT_Direction] = 0;
-            else:            new_State[_] = new_State[MOTHER] = new_State[BOAT_Direction] = 1;
-
-            if isValid(new_State) and new_State not in valid_states:
-                valid_states.append(new_State)
-# //////////////////
-        if state[_] == state[POLICE] == state[BOAT_Direction]:
-            new_State = copy(state)
-
-            if new_State[_]: new_State[_] = new_State[POLICE] = new_State[BOAT_Direction] = 0;
-            else:            new_State[_] = new_State[POLICE] = new_State[BOAT_Direction] = 1;
-
-            if isValid(new_State) and new_State not in valid_states:
-                valid_states.append(new_State)
-# **//////////////////**
     return valid_states
 
 # Describes State Changes in Context
@@ -170,9 +152,10 @@ def DLS_Search(state, Depth_Limit, preExpandedNodesList):
 
 # main part of the Code, Calling DLS_Search on begin state=[0..0]
 # ////////////////MAIN//////////////////
-final_States_List = DLS_Search([0, 0, 0, 0, 0, 0, 0, 0, 0], 20, [])
-# DLS_Search([0,0,0,0,0,0,0,0,0],20 ,[])
+startState = [0]*9
+finalStatesList = DLS_Search(startState, 20, [])
+# DLS_Search(startState,20 ,[])
 # Also we can iterate this list to get every desired State
-pathShow(final_States_List)
+pathShow(finalStatesList)
 
 # By Parsa Yousefi Nejad
