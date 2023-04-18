@@ -78,7 +78,7 @@ def isValid(state):
 def isGoal(state):
     return state == [1, 1, 1, 1, 1, 1, 1, 1, 1]
 
-# i t generates all states from a valid state and filters all invalid ones
+# it generates all states from a valid state and filters all invalid ones
 def generateAllValidStates(state):
 
     if not isValid(state):
