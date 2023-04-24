@@ -1,5 +1,6 @@
 # Coded By Parsa Yousefi Nejad
 # Version 3: tellMove(), DLS_Search() methods added to the Code and some minor improvments were made
+#Recursive DLS_Search()
 # Now River Crossing Problem Completely Solved
 
 # Importing Necessary libraries
@@ -7,8 +8,8 @@ from os import system, name  # For clear() method
 from copy import copy        # To shallow copy of an object
 from time import sleep       # For implementing pause mechanism in pathShow()
 
-# Display: Shows one Record Graphically
-def Display(Record):
+# Show: Shows one Record Graphically
+def Show(Record):
     listOfChars = ["POLICE", "THIEF", "FATHER", "MOTHER","DAUGHTER_1", "DAUGHTER_2", "SON_1", "SON_2",]
     shore = ('\x1b[0;32;42m'+"⥯"+'\x1b[0m') * 10
     plainText = '\033[2m'+"❖"+'\x1b[0m'+" {} "+'\x1b[4;35;43m'+"|"+'\x1b[0m'+'\x1b[1;33;34m' + "~~~~~~~~~~~~~~~~"+'\x1b[0m'+'\x1b[4;35;43m'+"|" + '\x1b[0m'+" {} "+('\033[2m'+"❖"+'\x1b[0m')
@@ -46,7 +47,7 @@ def pathShow(List_States):
             sleep(2)
         clear()
         print(f"\033[3;46;35mChild State {Counter}\033[0m")
-        Display(state)
+        Show(state)
         tellMove(previousState, state)
         Counter += 1
         previousState = state
@@ -141,7 +142,7 @@ def DLS_Search(state, Depth_Limit, preExpandedNodesList):
 
     # now state node has been expanded, list keeps Expanded Nodes
     for new_state in generateAllValidStates(state):
-        # Display(new_state)     #Toggle Comment Block to Display All Explored Nodes
+        # Show(new_state)     #Toggle Comment Block to Show All Explored Nodes
         # tellMove(state,new_state)
         if new_state not in preExpandedNodesList:
             result = DLS_Search(new_state, Depth_Limit-1, preExpandedNodesList)
